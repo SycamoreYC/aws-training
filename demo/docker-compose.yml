@@ -5,21 +5,20 @@ services:
     image: nginx:1.13
     restart: always
     ports:
-      - 80:80
+      - 8000:8000
       - 443:443
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ../nginx/demo.conf:/etc/nginx/demo.conf
     depends_on:
       - app
   app:
     container_name: app-springboot-postgresql
-    image: app-springboot-postgresql
     build: ./
     ports:
       - "8080:8080"
     depends_on:
-      - dbpostgresql
-  dbpostgresql:
+      - db
+  db:
     image: postgres
     ports:
       - "5432:5432"
