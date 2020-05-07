@@ -3,7 +3,7 @@ version: "2.4"
 services:
   demo-server:
     build:
-      context: demo
+      context: ./demo
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -21,10 +21,14 @@ services:
 
   demo-front-end:
     build:
-      context: front-end-demo
+      context: ./front-end-demo
       dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./front-end-dmeo:/app
+      - node-module-cache:/app/node_modules
     ports:
-      - "9090:80"
+      - "3000:3000"
     depends_on:
       - demo-server
     networks:
@@ -47,5 +51,6 @@ networks:
 
 volumes:
   gradle-cache:
+  node-module-cache:
 
 
